@@ -1,13 +1,12 @@
-# RMHL-Terraform: Roger Morato's Homelab Terraform Configurations
-
-This repository contains the Infrastructure as Code (IaC) definitions for Roger Morato's Homelab, managed using Terraform. It defines and provisions the foundational virtual infrastructure within the homelab environment.
+# RMHL-Terraform
+This repository contains the Infrastructure as Code (IaC) definitions for my homelab, managed using Terraform. It defines and provisions the foundational virtual infrastructure within the homelab environment.
 
 ## Purpose
 
 The primary goal of this repository is to:
 
 * **Define Infrastructure Declaratively:** Specify the desired state of virtual machines (VMs), Linux Containers (LXCs), and related network/storage configurations on the Proxmox Virtual Environment using Terraform's HashiCorp Configuration Language (HCL).
-* **Automate Provisioning:** Enable consistent, repeatable, and automated deployment of homelab infrastructure resources.
+* **Automate Provisioning:** Enable consistent, repeatable, and automated deployment of homelab infrastxructure resources.
 * **Version Control:** Track all infrastructure changes, allowing for rollbacks and clear auditing of infrastructure evolution.
 * **Integration with Automation Tools:** Designed to be executed via Semaphore, providing a web-based interface for triggering Terraform runs and managing credentials.
 
