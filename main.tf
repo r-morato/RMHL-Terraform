@@ -7,22 +7,41 @@ provider "proxmox" {
 
 resource "proxmox_lxc" "homelab_container" {
   count     = length(var.containers)
-  hostname  = var.containers[count.index].hostname
+
+  hostname    = var.containers[count.index].hostname
   target_node = var.proxmox_node
-  clone     = 100
-  password  = var.container_password
-  cores     = var.containers[count.index].cores
-  memory    = var.containers[count.index].memory
+  vmid        = var.containers[count.index].id
+  ostemplate  = "${var.template_storage}:${var.template_path}"
+  password    = var.container_password
+  cores       = var.containers[count.index].cores
+  memory      = var.containers[count.index].memory
+
   network {
     name   = "eth0"
     bridge = "vmbr0"
     ip     = "${var.containers[count.index].ip}/24"
     gw     = var.gateway
   }
+
   rootfs {
     storage = var.rootfs_storage
-    size = "4G"
+    size    = "4G"
   }
-  start = true
+
+  start        = true
   unprivileged = true
+
+  lifecycle {
+    create_before_destroy = true
+    # prevent Terraform from creating multiple at the same time
+    # this is NOT a real "serialization", but helps mitigate
+  }
+
+  # optional: add artificial dependency to slow creation
+  depends_on = [null_resource.delay_${count.index}]
+}
+
+resource "null_resource" "delay_0" {}
+resource "null_resource" "delay_1" {
+  depends_on = [null_resource.delay_0]
 }
