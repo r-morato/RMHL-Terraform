@@ -9,7 +9,7 @@ resource "proxmox_lxc" "homelab_container" {
   count     = length(var.containers)
   hostname  = var.containers[count.index].hostname
   target_node = var.proxmox_node
-  ostemplate = var.template_storage + ":" + var.template_path
+  ostemplate   = "${var.template_storage}:${var.template_path}"
   password  = var.container_password
   cores     = var.containers[count.index].cores
   memory    = var.containers[count.index].memory
