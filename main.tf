@@ -13,11 +13,12 @@ resource "proxmox_lxc" "homelab_container" {
   password  = var.container_password
   cores     = var.containers[count.index].cores
   memory    = var.containers[count.index].memory
-  netif {
-    name = "eth0"
+  network {
+    id     = 0
+    name   = "eth0"
     bridge = "vmbr0"
-    ip = var.containers[count.index].ip
-    gw = var.gateway
+    ip     = "192.168.4.189/24"
+    gw     = var.gateway
   }
   rootfs {
     storage = var.rootfs_storage
