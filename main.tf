@@ -26,11 +26,4 @@ resource "proxmox_lxc" "homelab_container" {
   start = true
   unprivileged = true
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  depends_on = [
-    count.index > 0 ? proxmox_lxc.homelab_container[count.index - 1] : null
-  ]
 }
