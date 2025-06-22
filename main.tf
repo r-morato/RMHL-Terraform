@@ -14,7 +14,6 @@ resource "proxmox_lxc" "homelab_container" {
   cores     = var.containers[count.index].cores
   memory    = var.containers[count.index].memory
   network {
-    id     = 0
     name   = "eth0"
     bridge = "vmbr0"
     ip     = "192.168.4.189/24"
