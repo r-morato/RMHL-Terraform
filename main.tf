@@ -16,7 +16,7 @@ resource "proxmox_lxc" "homelab_container" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.4.189/24"
+    ip     = "${var.containers[count.index].ip}/24"
     gw     = var.gateway
   }
   rootfs {
