@@ -12,4 +12,4 @@ resource "proxmox_lxc" "homelab_vm" {
   }
   start = true
 }
-ß
+
