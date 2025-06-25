@@ -3,7 +3,6 @@ variable "pm_user" {}
 variable "pm_api_token" {}
 
 variable "gateway" {}
-variable "template_storage" {}
 variable "rootfs_storage" {}
 variable "proxmox_node" {}
 
