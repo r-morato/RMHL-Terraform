@@ -8,10 +8,6 @@ provider "proxmox" {
 resource "proxmox_vm_qemu" "homelab_vm" {
   target_node = var.proxmox_node
   clone     = 110
-  rootfs {
-    storage = var.rootfs_storage
-    size = "32G"
-  }
   start = true
 }
 
