@@ -5,7 +5,6 @@ variable "pm_api_token" {}
 variable "container_password" {}
 variable "gateway" {}
 variable "template_storage" {}
-variable "template_path" {}
 variable "rootfs_storage" {}
 variable "proxmox_node" {}
 
