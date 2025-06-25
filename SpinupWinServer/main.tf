@@ -7,7 +7,7 @@ provider "proxmox" {
 
 resource "proxmox_vm_qemu" "homelab_vm" {
   target_node = var.proxmox_node
-  clone  = "WIN-JUMPSERVER"
+  clone  = 111
   full_clone = true
   oncreate = true
 }
