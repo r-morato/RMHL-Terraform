@@ -5,7 +5,7 @@ provider "proxmox" {
   pm_tls_insecure     = true
 }
 
-resource "proxmox_lxc" "homelab_vm" {
+resource "proxmox_vm" "homelab_vm" {
   target_node = var.proxmox_node
   clone     = 110
   rootfs {
