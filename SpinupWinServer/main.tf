@@ -7,9 +7,8 @@ provider "proxmox" {
 
 resource "proxmox_vm_qemu" "homelab_vm" {
   target_node = var.proxmox_node
-  clone_id  = 110
+  clone  = 110
   full_clone = true
-  
-  vm_state = "started"
+  oncreate = true
 }
 
