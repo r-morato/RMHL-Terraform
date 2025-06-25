@@ -9,9 +9,4 @@ variable "template_path" {}
 variable "rootfs_storage" {}
 variable "proxmox_node" {}
 
-# Optional - if you're creating multiple containers using a loop
-variable "containers" {
-  description = "List of container configs"
-  type        = any
-  default     = []
-}
+
