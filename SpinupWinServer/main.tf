@@ -7,7 +7,7 @@ provider "proxmox" {
 
 resource "proxmox_lxc" "homelab_vm" {
   target_node = var.proxmox_node
-  clone     = 100
+  clone     = 110
   rootfs {
     storage = var.rootfs_storage
     size = "32G"
