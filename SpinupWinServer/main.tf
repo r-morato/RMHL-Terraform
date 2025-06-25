@@ -10,7 +10,7 @@ resource "proxmox_lxc" "homelab_vm" {
   clone     = 100
   rootfs {
     storage = var.rootfs_storage
-    size = 32G
+    size = "32G"
   }
   start = true
 }
