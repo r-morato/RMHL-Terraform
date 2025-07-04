@@ -17,7 +17,7 @@ Currently, this repository focuses on managing the following aspects of the home
 * **Proxmox Virtual Machines (KVM):** Definition of VM specifications (CPU, RAM, disk, network).
 * **Proxmox Linux Containers (LXC):** Definition of LXC specifications and base OS templates.
 * **Virtual Networking (within Proxmox):** Management of virtual bridges and network interfaces for VMs/LXCs.
-* **Virtual Storage:** Attachment of virtual disks to VMs/LXCs from defined Proxmox storage pools.
+* **Virtual Storage:** Attachment of virtual disks to VMs/LXCs from defined Proxmox storage pools. 
 
 ## Repository Structure
 
@@ -55,6 +55,6 @@ To work with these Terraform configurations locally:
     ```bash
     terraform apply
     ```
-    *(Always review `terraform plan` output before applying!)*
+
 
 ---
