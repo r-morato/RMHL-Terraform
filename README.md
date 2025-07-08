@@ -1,67 +1,65 @@
 # RMHL-Terraform
 
-Welcome to the Terraform side of my homelab — the part that brings order to the chaos. This repo holds the infrastructure definitions that shape and power everything running in my Proxmox environment. It's all about keeping things declarative, consistent, and easy to rebuild when (not if) something goes sideways.
+This repository contains the infrastructure code for my homelab, managed with Terraform. It helps define and provision virtual machines, containers, and networking inside my Proxmox environment.
 
 ---
 
-## Why This Exists
+## Purpose
 
-I wanted to manage my infrastructure like code — because it *is* code. No more clicking through endless UI menus in Proxmox. Instead, I define exactly what each VM, container, bridge, and disk should look like using Terraform. It’s clean, version-controlled, and easy to automate.
+The main goal of this setup is to make managing homelab infrastructure easier, more consistent, and repeatable. Instead of setting things up manually in Proxmox, I use Terraform to describe what the setup should look like — then apply those changes automatically.
 
-The real reason, though? I got tired of guessing what changed last week. With Terraform, every change is tracked, auditable, and reversible. It's also a lot more fun.
+Some key benefits:
 
----
-
-## What It Handles
-
-This repo doesn’t try to do everything — just the important bits. Right now, it’s focused on defining and provisioning the core infrastructure inside Proxmox:
-
-- **Virtual Machines (KVM):** Specs like CPU, memory, storage, and network — all codified.
-- **Linux Containers (LXC):** Lightweight services get their own containerized homes.
-- **Networking:** Bridges and interfaces are all defined virtually within Proxmox.
-- **Storage:** VMs and LXCs can mount the storage they need from predefined pools.
-
-It’s modular, too — so spinning up a new LXC with a specific template or config takes just a few lines of HCL.
+- Infrastructure is defined in code, so it's versioned and auditable.
+- Easier to make updates or roll back mistakes.
+- Integrated with my automation tools, so I don’t have to run everything manually.
 
 ---
 
-## Structure at a Glance
+## What’s Covered
 
-Here’s how things are laid out:
+This setup currently manages:
+
+- **Proxmox VMs (KVM):** Define CPU, RAM, disk, and network settings.
+- **LXC Containers:** Lightweight containers for running services.
+- **Networking:** Virtual bridges and interfaces.
+- **Storage:** Disk attachments from Proxmox storage pools.
+
+---
+
+## Repository Layout
+
+Here’s how the repo is organized:
 
 ```
 .
-├── modules/               # Reusable Terraform modules (e.g., LXC/VM templates)
-├── projects/              # Top-level configurations for deployments
-│   ├── lxc_bases/         # Predefined containers (Pi-hole, UptimeKuma, etc.)
-│   └── vms/               # Any non-LXC virtual machines
-├── main.tf                # Main Terraform config entry
-├── variables.tf           # Inputs for configs
-├── outputs.tf             # Outputs from infrastructure
-└── .terraform/            # Terraform working directory (auto-generated)
+├── modules/               # Shared modules for VMs, LXCs, etc.
+├── projects/              # Configs for specific services or deployments
+│   ├── lxc_bases/         # Base container setups (e.g. Pi-hole, UptimeKuma)
+│   └── vms/               # VM-specific configs
+├── main.tf                # Entry point for Terraform
+├── variables.tf           # Input variables
+├── outputs.tf             # Output values
+└── .terraform/            # Auto-generated directory by Terraform
 ```
 
 ---
 
-## Automation: Ansible + Semaphore
+## Automation with Semaphore
 
-Terraform is only part of the story. This repo ties into a broader automation pipeline that includes **Ansible** and **Semaphore**.
+This repo is tied into a larger automation stack using **Ansible** and **Semaphore**.
 
-- **Semaphore** provides a clean web UI to kick off runs.
-- **Ansible** handles playbooks that wrap Terraform commands.
-- **Terraform** executes the plan and provisions infrastructure.
+- **Semaphore** lets me run automation tasks from a web UI.
+- **Ansible** handles the playbooks that run Terraform commands.
+- **Terraform** does the actual provisioning.
 
-Typical flow:
-
-1. Semaphore triggers an Ansible playbook.
-2. Playbook runs `terraform plan` and `terraform apply`.
-3. Infrastructure updates without you ever logging into Proxmox.
+This makes it easy to apply infrastructure changes from anywhere without logging into the Proxmox UI.
 
 ---
 
 ## Getting Started
 
-Want to try it locally? Here’s the quickstart:
+To use this repo locally:
 
 ```bash
 git clone https://github.com/YourGitHubUsername/RMHL-Terraform.git
@@ -71,12 +69,12 @@ terraform plan
 terraform apply
 ```
 
-Make sure your Proxmox credentials and provider config are set up before running anything.
+Make sure your Terraform provider for Proxmox is configured correctly.
 
 ---
 
 ## Final Notes
 
-This repo is one piece of a bigger system — a homelab designed to be clean, modular, and mostly self-maintaining. Terraform helps keep everything predictable and version-controlled, while leaving plenty of room to grow and experiment.
+This project is part of my broader homelab setup. It’s designed to be easy to manage, update, and scale over time. Using Terraform helps me keep everything consistent and avoids surprises when things change.
 
-Whether you're managing a few services or an entire fleet of LXCs, infrastructure-as-code makes life easier — and honestly, a lot more fun.
+Still a work in progress — and probably always will be — but that’s the point.
