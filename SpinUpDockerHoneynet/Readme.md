@@ -1,4 +1,4 @@
-# Proxmox-Terraform-Honeypot
+# Proxmox-Terraform-DockerHoneynet
 
 This project uses Terraform to deploy a dedicated Docker-based honeypot VM in a Proxmox environment. The honeypot runs Cowrie with a web-based log viewer, all containerized with Docker Compose.
 
