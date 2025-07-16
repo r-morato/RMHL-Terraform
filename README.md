@@ -1,80 +1,96 @@
 # RMHL-Terraform
 
-This repository contains the infrastructure code for my homelab, managed with Terraform. It helps define and provision virtual machines, containers, and networking inside my Proxmox environment.
+This repository contains Infrastructure-as-Code (IaC) configurations for managing and automating my homelab environment using [Terraform](https://www.terraform.io/) and [Proxmox](https://www.proxmox.com/en/). Each subdirectory represents a separate use case and is modular enough to be adapted independently.
 
 ---
 
-## Purpose
-
-The main goal of this setup is to make managing homelab infrastructure easier, more consistent, and repeatable. Instead of setting things up manually in Proxmox, I use Terraform to describe what the setup should look like — then apply those changes automatically.
-
-Some key benefits:
-
-- Infrastructure is defined in code, so it's versioned and auditable.
-- Easier to make updates or roll back mistakes.
-- Integrated with my automation tools, so I don’t have to run everything manually.
-
----
-
-## What’s Covered
-
-This setup currently manages:
-
-- **Proxmox VMs (KVM):** Define CPU, RAM, disk, and network settings.
-- **LXC Containers:** Lightweight containers for running services.
-- **Networking:** Virtual bridges and interfaces.
-- **Storage:** Disk attachments from Proxmox storage pools.
-
----
-
-## Repository Layout
-
-Here’s how the repo is organized:
+## 📦 Repository Structure
 
 ```
-.
-├── modules/               # Shared modules for VMs, LXCs, etc.
-├── projects/              # Configs for specific services or deployments
-│   ├── lxc_bases/         # Base container setups (e.g. Pi-hole, UptimeKuma)
-│   └── vms/               # VM-specific configs
-├── main.tf                # Entry point for Terraform
-├── variables.tf           # Input variables
-├── outputs.tf             # Output values
-└── .terraform/            # Auto-generated directory by Terraform
+RMHL-Terraform/
+├── SpinupWinServer/       # Clone and deploy Windows Server VMs from a template
+├── SpinUpDockerHoneynet/  # Deploy a Docker-based honeynet for network security monitoring
+├── CreateLXC/             # Provision lightweight Proxmox LXC containers
+└── README.md              # This file
 ```
 
 ---
 
-## Automation with Semaphore
+## 🔧 Use Cases
 
-This repo is tied into a larger automation stack using **Ansible** and **Semaphore**.
+### 1. **SpinupWinServer**
 
-- **Semaphore** lets me run automation tasks from a web UI.
-- **Ansible** handles the playbooks that run Terraform commands.
-- **Terraform** does the actual provisioning.
+Clone and provision a full Windows Server virtual machine from a pre-built Proxmox template using Terraform. Ideal for setting up a fresh Windows environment consistently across test or lab environments.
 
-This makes it easy to apply infrastructure changes from anywhere without logging into the Proxmox UI.
+- ✅ Uses `proxmox_vm_qemu`
+- ✅ Full cloning support
+- ✅ Minimal configuration required
+
+➡️ [View SpinupWinServer](./SpinupWinServer)
 
 ---
 
-## Getting Started
+### 2. **SpinUpDockerHoneynet**
 
-To use this repo locally:
+Deploy a lightweight, containerized honeynet using Docker. This setup helps monitor, log, and analyze suspicious activity in isolated environments. A great tool for learning network security and intrusion detection.
+
+- 🔐 Security-focused
+- 🐳 Runs with Docker Compose
+- 📊 Potential to integrate logging and dashboards (e.g. ELK, Grafana)
+
+➡️ [View SpinUpDockerHoneynet](./SpinUpDockerHoneynet)
+
+---
+
+### 3. **CreateLXC**
+
+Use Terraform to define and provision multiple LXC containers on a Proxmox node. Supports multiple container instances via a simple list structure, and includes rootfs, network, and resource configurations.
+
+- 🪶 Lightweight, unprivileged containers
+- ♻️ Ideal for service orchestration in homelabs
+- 📜 Declarative configs for scalability
+
+➡️ [View CreateLXC](./CreateLXC)
+
+---
+
+## 🚀 Getting Started
+
+To use any of the modules:
 
 ```bash
-git clone https://github.com/YourGitHubUsername/RMHL-Terraform.git
-cd RMHL-Terraform
+cd RMHL-Terraform/<ModuleName>
 terraform init
 terraform plan
 terraform apply
 ```
 
-Make sure your Terraform provider for Proxmox is configured correctly.
+Each folder contains its own `README.md`, configuration files, and variable definitions. Review and populate the appropriate `terraform.tfvars` before running.
 
 ---
 
-## Final Notes
+## 🧠 Why Use This?
 
-This project is part of my broader homelab setup. It’s designed to be easy to manage, update, and scale over time. Using Terraform helps me keep everything consistent and avoids surprises when things change.
+- Infrastructure is **version-controlled**, **documented**, and **repeatable**
+- Consistent environments reduce human error and setup time
+- Clean integration with homelab tools (e.g. Ansible, Semaphore)
+- Encourages modular, testable, and secure homelab management
 
-Still a work in progress — and probably always will be — but that’s the point.
+---
+
+## 🛠️ Requirements
+
+- Proxmox VE with API access enabled
+- Terraform 1.3+
+- Telmate Proxmox Provider
+- Optional: Docker, Ansible, Semaphore
+
+---
+
+## 📌 Final Notes
+
+This repository is a growing toolkit for managing a homelab more intelligently. It’s built to scale, automate, and secure lab deployments using modern DevOps principles.
+
+Feel free to fork, modify, or suggest improvements. Your homelab should be fun *and* resilient.
+
+---
